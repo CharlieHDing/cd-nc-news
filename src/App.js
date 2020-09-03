@@ -22,7 +22,7 @@ class App extends Component {
         <Login user={user} updateUser={this.updateUser}/>
         <Nav />
         <Router>
-          <ArticlesList path="articles"/>
+          <ArticlesList path="/"/>
           <ArticlesList path="topics/:topic/articles"/>
           <ArticlesList path="authors/:author/articles"/>
           <ArticleByID path="/articles/:articleID" user={user} />

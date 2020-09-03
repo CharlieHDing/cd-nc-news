@@ -6,8 +6,6 @@ class Nav extends Component {
 
     state = {
         topics:{},
-        // authors:{},
-        // topicsVisible: true,
         isLoading: true
     }
 
@@ -15,23 +13,11 @@ class Nav extends Component {
         this.getTopics()
     }
 
-    // componentDidUpdate(prevProps, prevState) {
-    //     const { articleID } = this.props;
-    //     if (prevState.showComments !== this.state.showComments) {
-    //         this.getComments(articleID)
-    //         this.setState({ isLoading: true });
-    //     }
-    //     if (prevProps.articleID !== this.props.articleID) {
-    //         this.getArticleByID(articleID);
-    //         this.setState({ isLoading: true });
-    //     }
-    // }
-
     render() {
         const topicArray = Object.values(this.state.topics)
         return (
             <nav className="App-NavBar">
-                        <Link to={`articles`}>
+                        <Link to={`/`}>
                             <button className="App-NavBar_Button">all</button>
                         </Link>
                 {topicArray.map((topic)=>{
