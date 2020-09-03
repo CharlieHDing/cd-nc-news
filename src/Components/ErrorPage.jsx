@@ -1,6 +1,6 @@
 import React from "react";
 
-const ErrorPage = ({ msg, status }) => {
+const ErrorPage = ({ status, msg}) => {
   return (
     <section className="ErrorPage">
       <h3>Sorry!</h3>

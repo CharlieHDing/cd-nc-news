@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
-
 import * as api from "../utils/api";
 import Loader from "./Loader";
 import Article from "./Article"
 import CommentsList from "./CommentsList"
 import CommentAdder from "./CommentAdder"
 import FilterBar from './FilterBar';
+import ErrorPage from './ErrorPage';
 
 class ArticleByID extends Component {
 
@@ -13,10 +13,11 @@ class ArticleByID extends Component {
         article: [],
         isLoading: true,
         showComments: false,
-        delCommentToggle: true,
+        CommentChangeToggle: true,
         comments: [],
         sort_by: "votes", 
-        order: "desc"
+        order: "desc",
+        err: null
     }
 
     componentDidMount(){
@@ -25,9 +26,9 @@ class ArticleByID extends Component {
     }
     
     componentDidUpdate(prevProps, prevState) {
-        const {showComments, sort_by, order, delCommentToggle} = this.state
+        const {showComments, sort_by, order, CommentChangeToggle} = this.state
         const { articleID } = this.props;
-        if (prevState.showComments !== showComments || prevState.sort_by !== sort_by || prevState.order !== order || prevState.delCommentToggle !== delCommentToggle) {
+        if (prevState.showComments !== showComments || prevState.sort_by !== sort_by || prevState.order !== order || prevState.CommentChangeToggle !== CommentChangeToggle) {
             this.getComments(articleID, sort_by, order)
             this.setState({ isLoading: true });
         }
@@ -38,19 +39,20 @@ class ArticleByID extends Component {
     }
     
     render() {
-        const { article, isLoading, showComments, comments } = this.state
+        const { article, isLoading, showComments, comments, err} = this.state
         const {user} = this.props
         if (isLoading) return <Loader />;
+        if (err) return <ErrorPage status={err.status} msg={err.msg}/>
         return (
             <section>
                 {Article(article)}
-                <CommentAdder articleID={this.props.articleID} user={user}/>
-                <button onClick={this.showComments}>Show Comments</button>
+                <CommentAdder articleID={this.props.articleID} user={user} commentsChanged={this.commentsChanged}/>
+                <button onClick={this.showComments}>{showComments? "Hide" : "Show"} Comments</button>
                 <section>
                     {(showComments) && 
                     <>
                         {FilterBar(this.setSortBy, this.setOrder, ["votes", "created_at"], ["desc", "asc"])}
-                        <CommentsList comments={comments} user={user} deleteComment={this.deleteComment}/>
+                        <CommentsList comments={comments} user={user} commentsChanged={this.commentsChanged}/>
                     </>
                     }
                 </section>
@@ -59,9 +61,16 @@ class ArticleByID extends Component {
     }
 
     getArticleByID = (articleID) => {
-        api.fetchArticleByID(articleID).then((article) => {
-          this.setState({ article, isLoading: false });
-        });
+        api.fetchArticleByID(articleID)
+        .then((article) => {
+          this.setState({ article, isLoading: false })
+        })
+        .catch((err)=>{
+            const {msg} = err.response.data
+            const {status} = err.response
+            console.dir(err.response)
+            this.setState({ err:{status, msg}, isLoading: false })
+        })
       };
 
     
@@ -76,6 +85,14 @@ class ArticleByID extends Component {
         });
       };
 
+    commentsChanged = () => {
+        this.setState((currentState) => {
+            return {
+            CommentChangeToggle: !currentState.CommentChangeToggle
+            };
+        });
+    };
+
     setSortBy = (clickEvent) => {
       const sort_by = clickEvent.target.id
       this.setState({ sort_by, isLoading: false })
@@ -86,14 +103,7 @@ class ArticleByID extends Component {
       this.setState({ order, isLoading: false })
     }
 
-    deleteComment = (removedComment) => {
-        this.setState((currentState) => {
-          return {
-            comments: [...currentState.comments],
-            delCommentToggle: !currentState.delCommentToggle
-          };
-        });
-      };
+   
 
 }
 

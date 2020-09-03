@@ -15,64 +15,117 @@
   flex-direction: row;
   align-items: center;
   justify-content: space-evenly;
+  font-family: ;
   font-size: calc(10px + 2vmin);
   color: white;
+}
+
+.App-LoginForm {
+  align-items: center;
+  justify-content: space-evenly;
+}
+
+.App-LoginForm_LoginBtn{
+  margin: 10px
 }
 
 .App-NavBar{
   background-color: #282c34;
-  min-height: 10px;
   display: flex;
   justify-content: space-evenly;
-  font-size: calc(10px + 2vmin);
   color: white;
+  margin:10px
 }
 
 .App-NavBar_Button{
   background-color: #282c34;
-  min-height: 10px;
+  margin: 10px;
+  padding: 10px;
   color: white;
+  border: none;
+  font-variant: small-caps;
+  font-size: 16px;
 }
 
-.ArticleSnippets{
+.App-filterBar{
+  border:solid 2px black;
+  border-radius: 10px;
+  min-height: 10px;
+  margin:10px;
+  padding:10px;
+}
+
+.App-filterBar_label{
+  margin: 10px;
+}
+
+.App-filterBar_Button{
+  margin: 10px;
+  font-size: 13.33px;
+}
+
+.App-Articles{
   border:solid 2px black;
   background-color:#282c34 ;
   border-radius: 10px;
-  width: 500px;
-  display: block;
-  flex-direction: row;
-  justify-content: center;
   margin: 10px;
+  padding:10px;
+  color: white;
 }
 
-.ArticleSnip{
+.App-Articles_Snippet{
   border:solid 2px black;
   background-color:lightgray ;
   border-radius: 10px;
-  width: 400px;
-  display: block;
-  justify-content: center;
   margin: 10px;
+  padding:10px;
+  color: black;
 }
 
-.Article{
+.App-Article{
   border:solid 2px black;
   background-color:lightgray ;
   border-radius: 10px;
-  width: 400px;
-  display: block;
-  justify-content: center;
   margin: 10px;
 }
 
-.CommentSnip{
+.App-AddComment{
+  border:solid 2px black;
+  border-radius: 10px;
+  margin: 10px;
+  padding: 10px;
+}
+
+#newComment{
+  width: 80%;
+  height: 30px;
+}
+
+.App-AddComment_Button{
+  margin: 10px;
+}
+
+.App-Article_Comments{
+  border:solid 2px black;
+  background-color:#282c34 ;
+  border-radius: 10px;
+  margin: 10px;
+  padding:10px;
+  color:white
+}
+
+.App-Article_Comment{
   border:solid 2px black;
   background-color:lightgray ;
   border-radius: 10px;
-  width: 600px;
-  display: block;
-  justify-content: center;
   margin: 10px;
+  color:black;
+}
+
+button:focus {
+  background-color: lightgrey;
+  color:black;
+  outline: blue auto 5px; 
 }
 
 .App-link {

@@ -32,7 +32,7 @@ class Nav extends Component {
         return (
             <nav className="App-NavBar">
                         <Link to={`articles`}>
-                            <button className="App-NavBar_Button">All</button>
+                            <button className="App-NavBar_Button">all</button>
                         </Link>
                 {topicArray.map((topic)=>{
                     return (

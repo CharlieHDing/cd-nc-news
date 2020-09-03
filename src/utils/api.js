@@ -44,7 +44,7 @@ export const patchVotes = (type, ID, votes) => {
 
 export const postComment = (articleID, username, body) => {
     return instance
-        .post(`/articles/${articleID}/comments`, {username, body })
+        .post(`/articles/${articleID}/comments`, {username:username, body:body })
         .then((res) => {
         return res.data;
     });

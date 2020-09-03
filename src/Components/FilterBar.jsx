@@ -2,18 +2,20 @@ import React from 'react';
 
 const FilterBar = (setSortBy, setOrder, sortOptions, orderOptions) => {
     return (
-        <div>
-            <label>
-                sort
+        <div className="App-filterBar">
+            <label className="App-filterBar_label">
+                Sort by:
+                <br/>
                 {sortOptions.map((option)=>{
-                    return <button onClick={setSortBy} id={option} key={option}>{option}</button>
+                    return <button onClick={setSortBy} id={option} key={option} className="App-filterBar_Button">{option} </button>
                 })}
             </label>
             <br/>
-            <label>
-                order
+            <label className="App-filterBar_label">
+                Order
+                <br/>
                 {orderOptions.map((option)=>{
-                    return <button onClick={setOrder} id={option} key={option}>{option}</button>
+                    return <button onClick={setOrder} id={option} key={option} className="App-filterBar_Button">{option}</button>
                 })}
             </label>
         </div>
