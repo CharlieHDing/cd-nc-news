@@ -3,6 +3,14 @@ import * as api from "../utils/api";
 
 class CommentDeleter extends Component {
 
+  render() {
+    return (
+      <section className="App-Comments_DeleteComment">
+        <button onClick={this.handleSubmit} >delete comment</button>
+      </section> 
+    );
+  }
+
   handleSubmit = (submitEvent) => {
     const { commentID, commentsChanged} = this.props;
     submitEvent.preventDefault();
@@ -11,13 +19,6 @@ class CommentDeleter extends Component {
     });
   };
 
-  render() {
-    return (
-        <form onSubmit={this.handleSubmit} className="DeleteComment">
-              <button>Delete comment</button>
-        </form>
-    );
-  }
 }
 
 export default CommentDeleter;

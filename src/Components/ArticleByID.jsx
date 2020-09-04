@@ -2,21 +2,15 @@ import React, { Component } from 'react';
 import * as api from "../utils/api";
 import Loader from "./Loader";
 import Article from "./Article"
-import CommentsList from "./CommentsList"
-import CommentAdder from "./CommentAdder"
-import FilterBar from './FilterBar';
+import CommentsList from "./CommentsList";
 import ErrorPage from './ErrorPage';
 
 class ArticleByID extends Component {
 
     state = {
-        article: [],
+        article: {},
         isLoading: true,
         showComments: false,
-        CommentChangeToggle: true,
-        comments: [],
-        sort_by: "votes", 
-        order: "desc",
         err: null
     }
 
@@ -26,12 +20,7 @@ class ArticleByID extends Component {
     }
     
     componentDidUpdate(prevProps, prevState) {
-        const {showComments, sort_by, order, CommentChangeToggle} = this.state
         const { articleID } = this.props;
-        if (prevState.showComments !== showComments || prevState.sort_by !== sort_by || prevState.order !== order || prevState.CommentChangeToggle !== CommentChangeToggle) {
-            this.getComments(articleID, sort_by, order)
-            this.setState({ isLoading: true });
-        }
         if (prevProps.articleID !== articleID) {
             this.getArticleByID(articleID);
             this.setState({ isLoading: true });
@@ -39,22 +28,17 @@ class ArticleByID extends Component {
     }
     
     render() {
-        const { article, isLoading, showComments, comments, err} = this.state
-        const {user} = this.props
+        const { article, isLoading, showComments, err} = this.state
+        const {user, articleID} = this.props
         if (isLoading) return <Loader />;
         if (err) return <ErrorPage status={err.status} msg={err.msg}/>
         return (
             <section>
                 {Article(article)}
-                <CommentAdder articleID={this.props.articleID} user={user} commentsChanged={this.commentsChanged}/>
-                <button onClick={this.showComments}>{showComments? "Hide" : "Show"} Comments</button>
+                <button onClick={this.showComments}>{showComments? "hide" : "show"} comments</button>
                 <section>
                     {(showComments) && 
-                    <>
-                        {FilterBar(this.setSortBy, this.setOrder, ["votes", "created_at"], ["desc", "asc"])}
-                        <CommentsList comments={comments} user={user} commentsChanged={this.commentsChanged}/>
-                    </>
-                    }
+                    <CommentsList articleID={articleID} user={user} showComments={showComments}/>}
                 </section>
             </section>
         );
@@ -73,38 +57,10 @@ class ArticleByID extends Component {
         })
       };
 
-    
     showComments = () => {
         const {showComments} = this.state
         this.setState({showComments: !showComments})
     }
-
-    getComments = (articleID, sort_by, order) => {
-        api.fetchCommentsByArticleID(articleID, sort_by, order).then((comments) => {
-          this.setState({ comments, isLoading: false });
-        });
-      };
-
-    commentsChanged = () => {
-        this.setState((currentState) => {
-            return {
-            CommentChangeToggle: !currentState.CommentChangeToggle
-            };
-        });
-    };
-
-    setSortBy = (clickEvent) => {
-      const sort_by = clickEvent.target.id
-      this.setState({ sort_by, isLoading: false })
-    }
-
-    setOrder = (clickEvent) => {
-      const order = clickEvent.target.id
-      this.setState({ order, isLoading: false })
-    }
-
-   
-
 }
 
 export default ArticleByID;

@@ -2,26 +2,38 @@ import React, { Component } from 'react';
 import * as api from "../utils/api";
 
 class CommentAdder extends Component {
+  
   state = {
-      newComment: ""
+      newComment: "",
+      error: false
     };
 
   render = () => {
-    const { newComment } = this.state;
+    const { newComment, error } = this.state;
+    const { user } = this.props;
 
     return (
-      <form onSubmit={this.handleSubmit} className="App-AddComment">
-        <h2>Add Comment</h2>
-        <input
-          type="text"
-          name=""
-          id="newComment"
-          onChange={this.handleChange}
-          value={newComment}
-        />
-        <br/>
-        <button className="App-AddComment_Button" >Submit</button>
-      </form>
+      <section className="App-AddComment">
+        { user ?
+        <>
+          <form onSubmit={this.handleSubmit} >
+            <input
+              type="text"
+              name=""
+              id="newComment"
+              placeholder="Add a comment..."
+              onChange={this.handleChange}
+              value={newComment}
+            />
+            <br/>
+            <button className="App-AddComment_Button" >submit</button>
+            <p className="submitError"> {error && "Please add a comment body before submitting..."}</p>
+          </form>
+        </>
+        :
+        <p>Login to add a comment</p>
+        }
+      </section>
     );
   };
 
@@ -31,16 +43,16 @@ class CommentAdder extends Component {
   };
 
   handleSubmit = (submitEvent) => {
-    const {newComment} = this.state
+    const {newComment, error} = this.state
     const {articleID, user} = this.props
     submitEvent.preventDefault();
     if (newComment === ""){
-      window.alert("Please add a post body")
+      this.setState({error: !error})
     } else {
       api.postComment(articleID, user, newComment).then(() => {
         this.props.commentsChanged();
+        this.setState({newComment: ""})
       })
-      this.setState({newComment: ""})
     }
   };
 }

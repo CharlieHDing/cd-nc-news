@@ -44,10 +44,12 @@
   color: white;
   border: none;
   font-variant: small-caps;
-  font-size: 16px;
+  font-size: 20px;
 }
 
 .App-filterBar{
+  background-color:lightgray ;
+  color: black;
   border:solid 2px black;
   border-radius: 10px;
   min-height: 10px;
@@ -62,6 +64,7 @@
 .App-filterBar_Button{
   margin: 10px;
   font-size: 13.33px;
+  font-variant: small-caps;
 }
 
 .App-Articles{
@@ -71,6 +74,7 @@
   margin: 10px;
   padding:10px;
   color: white;
+  max-width: 600px;
 }
 
 .App-Articles_Snippet{
@@ -84,16 +88,19 @@
 
 .App-Article{
   border:solid 2px black;
-  background-color:lightgray ;
   border-radius: 10px;
+  background-color:lightgray ;
   margin: 10px;
+  max-width: 600px;
 }
 
 .App-AddComment{
   border:solid 2px black;
   border-radius: 10px;
+  background-color:lightgray ;
   margin: 10px;
   padding: 10px;
+  max-width: 600px;
 }
 
 #newComment{
@@ -101,8 +108,13 @@
   height: 30px;
 }
 
+.submitError{
+  color: red;
+}
+
 .App-AddComment_Button{
   margin: 10px;
+  font-variant: small-caps;
 }
 
 .App-Article_Comments{
@@ -110,8 +122,8 @@
   background-color:#282c34 ;
   border-radius: 10px;
   margin: 10px;
-  padding:10px;
-  color:white
+  color:white;
+  max-width: 600px;
 }
 
 .App-Article_Comment{
@@ -119,7 +131,16 @@
   background-color:lightgray ;
   border-radius: 10px;
   margin: 10px;
+  padding: 10px;
   color:black;
+}
+
+.App-Comments_DeleteComment{
+  font-variant: small-caps;
+}
+
+button{
+  font-variant: small-caps;
 }
 
 button:focus {

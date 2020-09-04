@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import { Link } from "@reach/router";
 import * as api from "../utils/api";
+import Loader from "./Loader";
+
 
 class Nav extends Component {
 
@@ -15,6 +17,8 @@ class Nav extends Component {
 
     render() {
         const topicArray = Object.values(this.state.topics)
+        const {isLoading} = this.state
+        if (isLoading) return <Loader />;
         return (
             <nav className="App-NavBar">
                         <Link to={`/`}>
@@ -35,7 +39,8 @@ class Nav extends Component {
         api.fetchTopics().then((topics) => {
           this.setState({ topics, isLoading:false});
         });
-      };
+    };
+
 }
 
 export default Nav;

@@ -3,7 +3,6 @@ import { Link } from "@reach/router";
 import Voter from "./Voter"
 
 const Article = (article) => {
-    // const time = Date.parse(article.created_at).toLocaleString('en-GB', { timeZone: 'UTC' })
     return (
         <section className="App-Article">
             <h2>{article.title}</h2>
@@ -13,7 +12,7 @@ const Article = (article) => {
             <Voter id={article.article_id} type="articles" votes={article.votes}/>
             <Link to={`/authors/${article.author}/articles`}><p>Author: {article.author}</p></Link>
             <p>Date: {article.created_at}</p>
-            <p>Comment: {article.comment_count}</p>
+            <p>Comment: {article.comment_count}</p>            
         </section>
     );
 };

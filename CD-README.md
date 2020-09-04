@@ -1,9 +1,12 @@
+### `General Information` 
+
+The app displays NorthCoders related news and enables users to find articles, vote and add comments where applicable. 
 
 ### `How to run the project locally` 
 
 1. Clone down the Git repo (https://github.com/CharlieHDing/cd-nc-news.git)
 2. 'CD' into the repository
-3. Install the required dependencies using 'npm i'
+3. Install the required dependencies using 'npm i' - ensure you have node v14.4.0 or later
 4. Generate a local copy of the app using 'npm run start'
 5. Build the app using 'npm run build'
 
